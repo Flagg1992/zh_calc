@@ -12,189 +12,191 @@
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     :root {
-      --bg: #0f0f1a; --bg2: #1a1a2e; --bg3: #22223a;
-      --accent: #e8c547; --accent2: #f0d96a;
-      --text: #f0f0f0; --text2: #9090b0;
-      --border: #2e2e4e; --danger: #ff6b6b; --success: #6bffb8;
-      --radius: 14px;
-      --font-head: 'Russo One', sans-serif;
-      --font-body: 'Roboto', sans-serif;
+      --bg:#0f0f1a; --bg2:#1a1a2e; --bg3:#22223a;
+      --accent:#e8c547; --text:#f0f0f0; --text2:#9090b0;
+      --border:#2e2e4e; --danger:#ff6b6b; --success:#6bffb8;
+      --radius:14px;
+      --font-head:'Russo One',sans-serif;
+      --font-body:'Roboto',sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font-body); overflow-x: hidden; }
-    .app { max-width: 480px; margin: 0 auto; min-height: 100vh; }
-    .screen { display: none; padding: 1.5rem 1rem 2rem; animation: fadeIn 0.2s ease; }
-    .screen.active { display: block; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
-    .page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
-    .page-title { font-family: var(--font-head); font-size: 22px; color: var(--text); line-height: 1.2; }
-    .page-title span { color: var(--accent); }
-    .btn-icon { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--text2); font-size: 20px; flex-shrink: 0; }
-    .grid2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-    .tile { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1rem 1.25rem; cursor: pointer; text-align: center; transition: background 0.15s; }
-    .tile:active { background: var(--bg3); }
-    .tile-icon { font-size: 30px; color: var(--accent); display: block; margin-bottom: 10px; }
-    .tile-label { font-family: var(--font-head); font-size: 14px; color: var(--text); }
-    .btn-back { background: none; border: none; color: var(--text2); font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; margin-bottom: 1.5rem; padding: 0; font-family: var(--font-body); }
-    .field { margin-bottom: 1rem; }
-    .field label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .field input[type=number] { width: 100%; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 16px; color: var(--text); outline: none; -webkit-appearance: none; }
-    .field input[type=number]::placeholder { color: var(--text2); font-size: 14px; }
-    input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
-    .section-label { font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; }
-    .toggle-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.25rem; }
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; cursor: pointer; transition: border-color 0.15s; }
-    .toggle-row.on { border-color: var(--accent); }
-    .toggle-row .ttext { font-size: 14px; color: var(--text); }
-    .toggle-row .extra { font-size: 12px; color: var(--accent); font-weight: 500; }
-    .toggle-switch { width: 42px; height: 24px; background: var(--bg3); border-radius: 12px; position: relative; transition: background 0.2s; flex-shrink: 0; }
-    .toggle-switch::after { content:''; position:absolute; top:3px; left:3px; width:18px; height:18px; background:var(--text2); border-radius:50%; transition:all 0.2s; }
-    .toggle-row.on .toggle-switch { background: var(--accent); }
-    .toggle-row.on .toggle-switch::after { left:21px; background:var(--bg); }
-    .btn-calc { width: 100%; padding: 14px; font-size: 15px; font-weight: 500; font-family: var(--font-head); letter-spacing: 0.04em; cursor: pointer; background: var(--accent); color: var(--bg); border: none; border-radius: var(--radius); margin-top: 0.25rem; }
-    .btn-calc:active { background: var(--accent2); }
-    .result-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-top: 1.25rem; animation: fadeIn 0.25s ease; }
-    .result-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); }
-    .result-row:last-child { border-bottom: none; padding-top: 12px; }
-    .result-row .rlabel { font-size: 13px; color: var(--text2); }
-    .result-row .rval { font-size: 14px; color: var(--text); font-weight: 500; }
-    .result-row.total .rlabel { font-size: 15px; color: var(--text); font-family: var(--font-head); }
-    .result-row.total .rval { font-size: 24px; color: var(--accent); font-family: var(--font-head); }
-    .err { font-size: 13px; color: var(--danger); margin-top: 6px; display: none; }
-    .settings-section { margin-bottom: 1.75rem; }
-    .settings-section h3 { font-size: 12px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
-    .srow { display: flex; align-items: center; justify-content: space-between; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; }
-    .srow-label { font-size: 14px; color: var(--text); }
-    .srow-input { display: flex; align-items: center; gap: 4px; }
-    .srow-input input[type=number] { width: 72px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 6px 8px; font-size: 15px; color: var(--accent); font-family: var(--font-head); text-align: right; outline: none; -webkit-appearance: none; }
-    .srow-unit { font-size: 12px; color: var(--text2); }
-    .saved-badge { font-size: 14px; color: var(--success); text-align: center; margin-top: 10px; display: none; }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font-body);overflow-x:hidden;}
+    .app{max-width:480px;margin:0 auto;min-height:100vh;}
+    .screen{display:none;padding:1.5rem 1rem 2rem;animation:fadeIn 0.2s ease;}
+    .screen.active{display:block;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .page-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2rem;}
+    .page-title{font-family:var(--font-head);font-size:22px;color:var(--text);line-height:1.2;}
+    .page-title span{color:var(--accent);}
+    .btn-icon{background:var(--bg2);border:1px solid var(--border);border-radius:10px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);flex-shrink:0;}
+    .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+    .tile{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1rem 1.25rem;cursor:pointer;text-align:center;transition:background 0.15s;}
+    .tile:active{background:var(--bg3);}
+    .tile svg{display:block;margin:0 auto 10px;}
+    .tile-label{font-family:var(--font-head);font-size:14px;color:var(--text);}
+    .btn-back{background:none;border:none;color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px;margin-bottom:1.5rem;padding:0;font-family:var(--font-body);}
+    .field{margin-bottom:1rem;}
+    .field label{display:block;font-size:12px;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;}
+    .field input[type=number]{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:16px;color:var(--text);outline:none;-webkit-appearance:none;}
+    .field input[type=number]::placeholder{color:var(--text2);font-size:14px;}
+    input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+    .section-label{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+    .toggle-group{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem;}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:border-color 0.15s;}
+    .toggle-row.on{border-color:var(--accent);}
+    .toggle-row .ttext{font-size:14px;color:var(--text);}
+    .toggle-row .extra{font-size:12px;color:var(--accent);font-weight:500;}
+    .toggle-switch{width:42px;height:24px;background:var(--bg3);border-radius:12px;position:relative;transition:background 0.2s;flex-shrink:0;margin-left:8px;}
+    .toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;background:var(--text2);border-radius:50%;transition:all 0.2s;}
+    .toggle-row.on .toggle-switch{background:var(--accent);}
+    .toggle-row.on .toggle-switch::after{left:21px;background:var(--bg);}
+    .btn-calc{width:100%;padding:14px;font-size:15px;font-weight:500;font-family:var(--font-head);letter-spacing:0.04em;cursor:pointer;background:var(--accent);color:var(--bg);border:none;border-radius:var(--radius);margin-top:0.25rem;}
+    .btn-calc:active{opacity:0.85;}
+    .result-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-top:1.25rem;animation:fadeIn 0.25s ease;}
+    .result-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);}
+    .result-row:last-child{border-bottom:none;padding-top:12px;}
+    .result-row .rlabel{font-size:13px;color:var(--text2);}
+    .result-row .rval{font-size:14px;color:var(--text);font-weight:500;}
+    .result-row.total .rlabel{font-size:15px;color:var(--text);font-family:var(--font-head);}
+    .result-row.total .rval{font-size:24px;color:var(--accent);font-family:var(--font-head);}
+    .err{font-size:13px;color:var(--danger);margin-top:6px;display:none;}
+    .settings-section{margin-bottom:1.75rem;}
+    .settings-section h3{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+    .srow{display:flex;align-items:center;justify-content:space-between;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;}
+    .srow-label{font-size:14px;color:var(--text);}
+    .srow-input{display:flex;align-items:center;gap:4px;}
+    .srow-input input[type=number]{width:72px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 8px;font-size:15px;color:var(--accent);font-family:var(--font-head);text-align:right;outline:none;-webkit-appearance:none;}
+    .srow-unit{font-size:12px;color:var(--text2);}
+    .saved-badge{font-size:14px;color:var(--success);text-align:center;margin-top:10px;display:none;}
   </style>
 </head>
 <body>
 <div class="app">
 
-  <div id="screen-home" class="screen active">
-    <div class="page-header">
-      <div class="page-title">Калькулятор<br><span>запчастей</span></div>
-      <button class="btn-icon" onclick="go('settings')"><i class="ti ti-settings"></i></button>
+<div id="screen-home" class="screen active">
+  <div class="page-header">
+    <div class="page-title">Калькулятор<br><span>запчастей</span></div>
+    <button class="btn-icon" onclick="go('settings')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+  <div class="grid2">
+    <div class="tile" onclick="go('palec')">
+      <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#e8c547"/></svg>
+      <div class="tile-label">Палец</div>
     </div>
-    <div class="grid2">
-      <div class="tile" onclick="go('palec')"><i class="ti ti-circle tile-icon"></i><div class="tile-label">Палец</div></div>
-      <div class="tile" onclick="go('vtulka')"><i class="ti ti-circle-dashed tile-icon"></i><div class="tile-label">Втулка</div></div>
-      <div class="tile" onclick="go('kronsh')">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" style="display:block;margin:0 auto 10px">
-          <rect x="4" y="4" width="7" height="22" rx="2" fill="#e8c547"/>
-          <rect x="4" y="19" width="22" height="7" rx="2" fill="#e8c547"/>
-        </svg>
-        <div class="tile-label">Кронштейн</div>
-      </div>
-      <div class="tile" onclick="go('other')"><i class="ti ti-help tile-icon"></i><div class="tile-label">Другое</div></div>
+    <div class="tile" onclick="go('vtulka')">
+      <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#e8c547"/><circle cx="16" cy="16" r="6" fill="#1a1a2e"/></svg>
+      <div class="tile-label">Втулка</div>
+    </div>
+    <div class="tile" onclick="go('kronsh')">
+      <svg width="32" height="32" viewBox="0 0 32 32"><rect x="5" y="5" width="7" height="22" rx="2" fill="#e8c547"/><rect x="5" y="20" width="22" height="7" rx="2" fill="#e8c547"/></svg>
+      <div class="tile-label">Кронштейн</div>
+    </div>
+    <div class="tile" onclick="go('other')">
+      <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#e8c547"/><text x="16" y="21" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a" font-family="sans-serif">?</text></svg>
+      <div class="tile-label">Другое</div>
     </div>
   </div>
+</div>
 
-  <div id="screen-settings" class="screen">
-    <button class="btn-back" onclick="go('home')"><i class="ti ti-arrow-left"></i> Назад</button>
-    <div class="page-title" style="margin-bottom:1.75rem">Настройки <span>цен</span></div>
-    <div class="settings-section">
-      <h3>Металл — Сталь 40 (Палец, Втулка)</h3>
-      <div class="srow"><span class="srow-label">Цена металла</span><div class="srow-input"><input type="number" id="s-price40" value="140"><span class="srow-unit">₽/кг</span></div></div>
-    </div>
-    <div class="settings-section">
-      <h3>Металл — Сталь 09Г2С (Кронштейн, Другое)</h3>
-      <div class="srow"><span class="srow-label">Цена металла</span><div class="srow-input"><input type="number" id="s-price09" value="100"><span class="srow-unit">₽/кг</span></div></div>
-    </div>
-    <div class="settings-section">
-      <h3>Надбавки — Палец и Втулка</h3>
-      <div class="srow"><span class="srow-label">Отверстие</span><div class="srow-input"><input type="number" id="s-hole" value="100"><span class="srow-unit">₽</span></div></div>
-      <div class="srow"><span class="srow-label">Много токарной работы</span><div class="srow-input"><input type="number" id="s-lathe" value="150"><span class="srow-unit">₽</span></div></div>
-      <div class="srow"><span class="srow-label">Сварка (Палец / Втулка)</span><div class="srow-input"><input type="number" id="s-weld-pv" value="100"><span class="srow-unit">₽</span></div></div>
-    </div>
-    <div class="settings-section">
-      <h3>Надбавки — Кронштейн</h3>
-      <div class="srow"><span class="srow-label">Сварка</span><div class="srow-input"><input type="number" id="s-weld-k" value="150"><span class="srow-unit">₽</span></div></div>
-      <div class="srow"><span class="srow-label">Сложный в изготовлении</span><div class="srow-input"><input type="number" id="s-hard" value="200"><span class="srow-unit">₽</span></div></div>
-    </div>
-    <button class="btn-calc" onclick="saveSettings()">Сохранить</button>
-    <p class="saved-badge" id="saved-badge">✓ Сохранено</p>
+<div id="screen-settings" class="screen">
+  <button class="btn-back" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Назад</button>
+  <div class="page-title" style="margin-bottom:1.75rem">Настройки <span>цен</span></div>
+  <div class="settings-section">
+    <h3>Металл — Сталь 40 (Палец, Втулка)</h3>
+    <div class="srow"><span class="srow-label">Цена металла</span><div class="srow-input"><input type="number" id="s-price40" value="140"><span class="srow-unit">₽/кг</span></div></div>
   </div>
+  <div class="settings-section">
+    <h3>Металл — Сталь 09Г2С (Кронштейн, Другое)</h3>
+    <div class="srow"><span class="srow-label">Цена металла</span><div class="srow-input"><input type="number" id="s-price09" value="100"><span class="srow-unit">₽/кг</span></div></div>
+  </div>
+  <div class="settings-section">
+    <h3>Надбавки — Палец и Втулка</h3>
+    <div class="srow"><span class="srow-label">Отверстие</span><div class="srow-input"><input type="number" id="s-hole" value="100"><span class="srow-unit">₽</span></div></div>
+    <div class="srow"><span class="srow-label">Много токарной работы</span><div class="srow-input"><input type="number" id="s-lathe" value="150"><span class="srow-unit">₽</span></div></div>
+    <div class="srow"><span class="srow-label">Сварка (Палец / Втулка)</span><div class="srow-input"><input type="number" id="s-weld-pv" value="100"><span class="srow-unit">₽</span></div></div>
+  </div>
+  <div class="settings-section">
+    <h3>Надбавки — Кронштейн</h3>
+    <div class="srow"><span class="srow-label">Сварка</span><div class="srow-input"><input type="number" id="s-weld-k" value="150"><span class="srow-unit">₽</span></div></div>
+    <div class="srow"><span class="srow-label">Сложный в изготовлении</span><div class="srow-input"><input type="number" id="s-hard" value="200"><span class="srow-unit">₽</span></div></div>
+  </div>
+  <button class="btn-calc" onclick="saveSettings()">Сохранить</button>
+  <p class="saved-badge" id="saved-badge">✓ Сохранено</p>
+</div>
 
-  <div id="screen-palec" class="screen">
-    <button class="btn-back" onclick="go('home')"><i class="ti ti-arrow-left"></i> Назад</button>
-    <div class="page-title" style="margin-bottom:1.5rem">Палец</div>
-    <div class="field"><label>Диаметр (мм)</label><input type="number" id="p-d" min="0" placeholder="например, 40"></div>
-    <div class="field"><label>Длина (мм)</label><input type="number" id="p-l" min="0" placeholder="например, 150"></div>
-    <div class="section-label">Дополнительно</div>
-    <div class="toggle-group" id="tg-palec">
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть отверстие <span class="extra" id="lbl-hole-p"></span></span><div class="toggle-switch"></div></div>
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Много токарной работы <span class="extra" id="lbl-lathe-p"></span></span><div class="toggle-switch"></div></div>
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть сварка <span class="extra" id="lbl-weld-pv-p"></span></span><div class="toggle-switch"></div></div>
-    </div>
-    <p class="err" id="p-err">Заполните диаметр и длину</p>
-    <button class="btn-calc" onclick="calcPalec()">Рассчитать себестоимость</button>
-    <div id="p-result"></div>
+<div id="screen-palec" class="screen">
+  <button class="btn-back" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Назад</button>
+  <div class="page-title" style="margin-bottom:1.5rem">Палец</div>
+  <div class="field"><label>Диаметр (мм)</label><input type="number" id="p-d" min="0" placeholder="например, 40"></div>
+  <div class="field"><label>Длина (мм)</label><input type="number" id="p-l" min="0" placeholder="например, 150"></div>
+  <div class="section-label">Дополнительно</div>
+  <div class="toggle-group" id="tg-palec">
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть отверстие <span class="extra" id="lbl-hole-p"></span></span><div class="toggle-switch"></div></div>
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Много токарной работы <span class="extra" id="lbl-lathe-p"></span></span><div class="toggle-switch"></div></div>
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть сварка <span class="extra" id="lbl-weld-pv-p"></span></span><div class="toggle-switch"></div></div>
   </div>
+  <p class="err" id="p-err">Заполните диаметр и длину</p>
+  <button class="btn-calc" onclick="calcPalec()">Рассчитать себестоимость</button>
+  <div id="p-result"></div>
+</div>
 
-  <div id="screen-vtulka" class="screen">
-    <button class="btn-back" onclick="go('home')"><i class="ti ti-arrow-left"></i> Назад</button>
-    <div class="page-title" style="margin-bottom:1.5rem">Втулка</div>
-    <div class="field"><label>Наружный диаметр (мм)</label><input type="number" id="v-dout" min="0" placeholder="например, 60"></div>
-    <div class="field"><label>Внутренний диаметр (мм)</label><input type="number" id="v-din" min="0" placeholder="например, 40"></div>
-    <div class="field"><label>Длина (мм)</label><input type="number" id="v-l" min="0" placeholder="например, 80"></div>
-    <div class="section-label">Дополнительно</div>
-    <div class="toggle-group" id="tg-vtulka">
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть отверстие <span class="extra" id="lbl-hole-v"></span></span><div class="toggle-switch"></div></div>
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Много токарной работы <span class="extra" id="lbl-lathe-v"></span></span><div class="toggle-switch"></div></div>
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть сварка <span class="extra" id="lbl-weld-pv-v"></span></span><div class="toggle-switch"></div></div>
-    </div>
-    <p class="err" id="v-err">Проверьте размеры</p>
-    <button class="btn-calc" onclick="calcVtulka()">Рассчитать себестоимость</button>
-    <div id="v-result"></div>
+<div id="screen-vtulka" class="screen">
+  <button class="btn-back" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Назад</button>
+  <div class="page-title" style="margin-bottom:1.5rem">Втулка</div>
+  <div class="field"><label>Наружный диаметр (мм)</label><input type="number" id="v-dout" min="0" placeholder="например, 60"></div>
+  <div class="field"><label>Внутренний диаметр (мм)</label><input type="number" id="v-din" min="0" placeholder="например, 40"></div>
+  <div class="field"><label>Длина (мм)</label><input type="number" id="v-l" min="0" placeholder="например, 80"></div>
+  <div class="section-label">Дополнительно</div>
+  <div class="toggle-group" id="tg-vtulka">
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть отверстие <span class="extra" id="lbl-hole-v"></span></span><div class="toggle-switch"></div></div>
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Много токарной работы <span class="extra" id="lbl-lathe-v"></span></span><div class="toggle-switch"></div></div>
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть сварка <span class="extra" id="lbl-weld-pv-v"></span></span><div class="toggle-switch"></div></div>
   </div>
+  <p class="err" id="v-err">Проверьте размеры</p>
+  <button class="btn-calc" onclick="calcVtulka()">Рассчитать себестоимость</button>
+  <div id="v-result"></div>
+</div>
 
-  <div id="screen-kronsh" class="screen">
-    <button class="btn-back" onclick="go('home')"><i class="ti ti-arrow-left"></i> Назад</button>
-    <div class="page-title" style="margin-bottom:1.5rem">Кронштейн</div>
-    <div class="field"><label>Вес (кг)</label><input type="number" id="k-w" min="0" step="0.1" placeholder="например, 5.5"></div>
-    <div class="section-label">Дополнительно</div>
-    <div class="toggle-group" id="tg-kronsh">
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть сварка <span class="extra" id="lbl-weld-k-k"></span></span><div class="toggle-switch"></div></div>
-      <div class="toggle-row" onclick="tog(this)"><span class="ttext">Сложный в изготовлении <span class="extra" id="lbl-hard-k"></span></span><div class="toggle-switch"></div></div>
-    </div>
-    <p class="err" id="k-err">Введите вес</p>
-    <button class="btn-calc" onclick="calcKronsh()">Рассчитать себестоимость</button>
-    <div id="k-result"></div>
+<div id="screen-kronsh" class="screen">
+  <button class="btn-back" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Назад</button>
+  <div class="page-title" style="margin-bottom:1.5rem">Кронштейн</div>
+  <div class="field"><label>Вес (кг)</label><input type="number" id="k-w" min="0" step="0.1" placeholder="например, 5.5"></div>
+  <div class="section-label">Дополнительно</div>
+  <div class="toggle-group" id="tg-kronsh">
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Есть сварка <span class="extra" id="lbl-weld-k-k"></span></span><div class="toggle-switch"></div></div>
+    <div class="toggle-row" onclick="tog(this)"><span class="ttext">Сложный в изготовлении <span class="extra" id="lbl-hard-k"></span></span><div class="toggle-switch"></div></div>
   </div>
+  <p class="err" id="k-err">Введите вес</p>
+  <button class="btn-calc" onclick="calcKronsh()">Рассчитать себестоимость</button>
+  <div id="k-result"></div>
+</div>
 
-  <div id="screen-other" class="screen">
-    <button class="btn-back" onclick="go('home')"><i class="ti ti-arrow-left"></i> Назад</button>
-    <div class="page-title" style="margin-bottom:1.5rem">Другое</div>
-    <div class="field"><label>Вес (кг)</label><input type="number" id="o-w" min="0" step="0.1" placeholder="например, 3"></div>
-    <p class="err" id="o-err">Введите вес</p>
-    <button class="btn-calc" onclick="calcOther()">Рассчитать себестоимость</button>
-    <div id="o-result"></div>
-  </div>
+<div id="screen-other" class="screen">
+  <button class="btn-back" onclick="go('home')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Назад</button>
+  <div class="page-title" style="margin-bottom:1.5rem">Другое</div>
+  <div class="field"><label>Вес (кг)</label><input type="number" id="o-w" min="0" step="0.1" placeholder="например, 3"></div>
+  <p class="err" id="o-err">Введите вес</p>
+  <button class="btn-calc" onclick="calcOther()">Рассчитать себестоимость</button>
+  <div id="o-result"></div>
+</div>
 
 </div>
 <script>
-const DENSITY = 7.85;
-let P = { price40:140, price09:100, hole:100, lathe:150, weldPV:100, weldK:150, hard:200 };
-try { const s=JSON.parse(localStorage.getItem('zp2')||'{}'); Object.assign(P,s); } catch(e){}
+const DENSITY=7.85;
+let P={price40:140,price09:100,hole:100,lathe:150,weldPV:100,weldK:150,hard:200};
+try{const s=JSON.parse(localStorage.getItem('zp2')||'{}');Object.assign(P,s);}catch(e){}
 
-function updateLabels() {
-  const m = {
-    'lbl-hole-p':P.hole,'lbl-lathe-p':P.lathe,'lbl-weld-pv-p':P.weldPV,
-    'lbl-hole-v':P.hole,'lbl-lathe-v':P.lathe,'lbl-weld-pv-v':P.weldPV,
-    'lbl-weld-k-k':P.weldK,'lbl-hard-k':P.hard
-  };
-  Object.entries(m).forEach(([id,val])=>{ const el=document.getElementById(id); if(el) el.textContent='+'+val+' ₽'; });
+function updateLabels(){
+  const m={'lbl-hole-p':P.hole,'lbl-lathe-p':P.lathe,'lbl-weld-pv-p':P.weldPV,'lbl-hole-v':P.hole,'lbl-lathe-v':P.lathe,'lbl-weld-pv-v':P.weldPV,'lbl-weld-k-k':P.weldK,'lbl-hard-k':P.hard};
+  Object.entries(m).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent='+'+val+' ₽';});
 }
 updateLabels();
 
-function openSettings() {
+function openSettings(){
   document.getElementById('s-price40').value=P.price40;
   document.getElementById('s-price09').value=P.price09;
   document.getElementById('s-hole').value=P.hole;
@@ -205,87 +207,81 @@ function openSettings() {
   document.getElementById('saved-badge').style.display='none';
 }
 
-function saveSettings() {
+function saveSettings(){
   const map=[['price40','s-price40'],['price09','s-price09'],['hole','s-hole'],['lathe','s-lathe'],['weldPV','s-weld-pv'],['weldK','s-weld-k'],['hard','s-hard']];
-  map.forEach(([k,id])=>{ const v=parseFloat(document.getElementById(id).value); if(v>0) P[k]=v; });
-  try { localStorage.setItem('zp2',JSON.stringify(P)); } catch(e){}
+  map.forEach(([k,id])=>{const v=parseFloat(document.getElementById(id).value);if(v>0)P[k]=v;});
+  try{localStorage.setItem('zp2',JSON.stringify(P));}catch(e){}
   updateLabels();
   const b=document.getElementById('saved-badge');
   b.style.display='block';
-  setTimeout(()=>{ b.style.display='none'; go('home'); },1000);
+  setTimeout(()=>{b.style.display='none';go('home');},1000);
 }
 
-function go(name) {
+function go(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-'+name).classList.add('active');
   window.scrollTo(0,0);
-  if(name==='settings') openSettings();
+  if(name==='settings')openSettings();
 }
 
-function tog(row) { row.classList.toggle('on'); }
-function getToggles(id) { return [...document.querySelectorAll('#'+id+' .toggle-row')].map(r=>r.classList.contains('on')); }
+function tog(row){row.classList.toggle('on');}
+function getToggles(id){return[...document.querySelectorAll('#'+id+' .toggle-row')].map(r=>r.classList.contains('on'));}
 
-function resultHTML(rows,total) {
+function resultHTML(rows,total){
   let h='<div class="result-card">';
-  rows.forEach(r=>{ h+=`<div class="result-row"><span class="rlabel">${r[0]}</span><span class="rval">${r[1]}</span></div>`; });
+  rows.forEach(r=>{h+=`<div class="result-row"><span class="rlabel">${r[0]}</span><span class="rval">${r[1]}</span></div>`;});
   h+=`<div class="result-row total"><span class="rlabel">Себестоимость</span><span class="rval">${total} ₽</span></div></div>`;
   return h;
 }
 
-function cylW(d,l){ const r=(d/2)/10,len=l/10; return Math.PI*r*r*len*DENSITY/1000; }
-function tubeW(do_,di,l){ const ro=(do_/2)/10,ri=(di/2)/10,len=l/10; return Math.PI*(ro*ro-ri*ri)*len*DENSITY/1000; }
+function cylW(d,l){const r=(d/2)/10,len=l/10;return Math.PI*r*r*len*DENSITY/1000;}
+function tubeW(do_,di,l){const ro=(do_/2)/10,ri=(di/2)/10,len=l/10;return Math.PI*(ro*ro-ri*ri)*len*DENSITY/1000;}
 
-function calcPalec() {
-  const d=parseFloat(document.getElementById('p-d').value);
-  const l=parseFloat(document.getElementById('p-l').value);
+function calcPalec(){
+  const d=parseFloat(document.getElementById('p-d').value),l=parseFloat(document.getElementById('p-l').value);
   const err=document.getElementById('p-err');
   if(!d||!l||d<=0||l<=0){err.style.display='block';return;}
   err.style.display='none';
   const w=cylW(d,l),metal=Math.round(w*P.price40);
-  const [hole,lathe,weld]=getToggles('tg-palec');
+  const[hole,lathe,weld]=getToggles('tg-palec');
   const total=metal+(hole?P.hole:0)+(lathe?P.lathe:0)+(weld?P.weldPV:0);
   const rows=[['Вес',w.toFixed(3)+' кг'],[`Металл (×${P.price40} ₽/кг)`,metal+' ₽']];
-  if(hole) rows.push(['Отверстие','+'+P.hole+' ₽']);
-  if(lathe) rows.push(['Токарная работа','+'+P.lathe+' ₽']);
-  if(weld) rows.push(['Сварка','+'+P.weldPV+' ₽']);
+  if(hole)rows.push(['Отверстие','+'+P.hole+' ₽']);
+  if(lathe)rows.push(['Токарная работа','+'+P.lathe+' ₽']);
+  if(weld)rows.push(['Сварка','+'+P.weldPV+' ₽']);
   document.getElementById('p-result').innerHTML=resultHTML(rows,total);
 }
 
-function calcVtulka() {
-  const dout=parseFloat(document.getElementById('v-dout').value);
-  const din=parseFloat(document.getElementById('v-din').value);
-  const l=parseFloat(document.getElementById('v-l').value);
+function calcVtulka(){
+  const dout=parseFloat(document.getElementById('v-dout').value),din=parseFloat(document.getElementById('v-din').value),l=parseFloat(document.getElementById('v-l').value);
   const err=document.getElementById('v-err');
-  if(!dout||!din||!l||dout<=0||din<=0||l<=0||din>=dout){
-    err.textContent=din>=dout?'Внутренний диаметр должен быть меньше наружного':'Проверьте размеры';
-    err.style.display='block';return;
-  }
+  if(!dout||!din||!l||dout<=0||din<=0||l<=0||din>=dout){err.textContent=din>=dout?'Внутренний диаметр должен быть меньше наружного':'Проверьте размеры';err.style.display='block';return;}
   err.style.display='none';
   const w=tubeW(dout,din,l),metal=Math.round(w*P.price40);
-  const [hole,lathe,weld]=getToggles('tg-vtulka');
+  const[hole,lathe,weld]=getToggles('tg-vtulka');
   const total=metal+(hole?P.hole:0)+(lathe?P.lathe:0)+(weld?P.weldPV:0);
   const rows=[['Вес',w.toFixed(3)+' кг'],[`Металл (×${P.price40} ₽/кг)`,metal+' ₽']];
-  if(hole) rows.push(['Отверстие','+'+P.hole+' ₽']);
-  if(lathe) rows.push(['Токарная работа','+'+P.lathe+' ₽']);
-  if(weld) rows.push(['Сварка','+'+P.weldPV+' ₽']);
+  if(hole)rows.push(['Отверстие','+'+P.hole+' ₽']);
+  if(lathe)rows.push(['Токарная работа','+'+P.lathe+' ₽']);
+  if(weld)rows.push(['Сварка','+'+P.weldPV+' ₽']);
   document.getElementById('v-result').innerHTML=resultHTML(rows,total);
 }
 
-function calcKronsh() {
+function calcKronsh(){
   const w=parseFloat(document.getElementById('k-w').value);
   const err=document.getElementById('k-err');
   if(!w||w<=0){err.style.display='block';return;}
   err.style.display='none';
   const metal=Math.round(w*P.price09);
-  const [weld,hard]=getToggles('tg-kronsh');
+  const[weld,hard]=getToggles('tg-kronsh');
   const total=metal+(weld?P.weldK:0)+(hard?P.hard:0);
   const rows=[[`Металл (×${P.price09} ₽/кг)`,metal+' ₽']];
-  if(weld) rows.push(['Сварка','+'+P.weldK+' ₽']);
-  if(hard) rows.push(['Сложное изготовление','+'+P.hard+' ₽']);
+  if(weld)rows.push(['Сварка','+'+P.weldK+' ₽']);
+  if(hard)rows.push(['Сложное изготовление','+'+P.hard+' ₽']);
   document.getElementById('k-result').innerHTML=resultHTML(rows,total);
 }
 
-function calcOther() {
+function calcOther(){
   const w=parseFloat(document.getElementById('o-w').value);
   const err=document.getElementById('o-err');
   if(!w||w<=0){err.style.display='block';return;}
